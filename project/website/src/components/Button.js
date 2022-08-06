@@ -8,9 +8,7 @@ const Button = () => {
     }
 
     return (
-        <>
-            <button onClick={handleClick}>Number of clicks is {amount}</button>
-        </>
+        <button onClick={handleClick}>Number of clicks is {amount}</button>
     )
 }
 
