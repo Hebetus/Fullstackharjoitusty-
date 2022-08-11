@@ -1,8 +1,15 @@
 import Map from './Map';
 import Button from './Button';
 import Posts from './Posts';
+import Navbar from './Navbar';
+
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const App = () => {
+  const [posts, setPosts] = useState([])
+  const [users, setUsers] = useState([])
+
   const postsInit = [
     {
       id: 0,
@@ -21,10 +28,28 @@ const App = () => {
     }
   ]
 
+  useEffect(() => {
+    axios.get('http://localhost:3001/posts').then(
+      response => {
+        console.log(response.data)
+        setPosts(response.data)
+        console.log(response.data)
+      }
+    )
+
+    axios.get('http://localhost:3001/users').then(
+      response => {
+        console.log(response.data)
+        setUsers(response.data)
+        console.log(response.data)
+      }
+    )
+  }, [])
+
   return (
     <>
-      <p>Greetings, this website is a study project to showcase my home village</p>
-      <Posts posts={postsInit} />
+      <Navbar />
+      <Posts posts={posts} />
       <Map />
       <Button />
     </>
