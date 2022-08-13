@@ -1,23 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const Posts = (props) => {
-    const [posts, setPosts] = useState(props.posts)
+const Posts = () => {
+    const [posts, setPosts] = useState([])
     const [newPost, setNewPost] = useState("Uusi postaus?")
 
     const handlePost = (event) => {
         event.preventDefault()
         const newPostJSON = {
-            id: posts.length,
             author: "Default",
             content: newPost
         }
-        setPosts([...posts, newPostJSON])
+        axios.post('http://localhost:3001/posts', newPostJSON).then((result) => {
+            console.log(result)
+            setPosts(posts.concat(result.data))
+        })
         setNewPost("Uusi postaus?")
     }
 
     const handleChange = (event) => {
         setNewPost(event.target.value)
     }
+
+    useEffect(() => {
+        const postsPromise = axios.get('http://localhost:3001/posts')
+        console.log(postsPromise)
+        postsPromise.then((result) => {
+          console.log(result.data)
+          setPosts(result.data)
+        })
+      }, []
+    )
 
     return (
         <>
@@ -32,4 +45,4 @@ const Posts = (props) => {
     )
 }
 
-export default Posts
+export default Posts 
