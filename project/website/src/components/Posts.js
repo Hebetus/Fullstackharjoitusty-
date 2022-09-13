@@ -1,25 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import Post from './Post'
+
 const Posts = () => {
     const [posts, setPosts] = useState([])
-    const [newPost, setNewPost] = useState("Uusi postaus?")
 
-    const handlePost = (event) => {
-        event.preventDefault()
-        const newPostJSON = {
-            author: "Default",
-            content: newPost
-        }
-        axios.post('http://localhost:3001/posts', newPostJSON).then((result) => {
-            console.log(result)
-            setPosts(posts.concat(result.data))
-        })
-        setNewPost("Uusi postaus?")
-    }
-
-    const handleChange = (event) => {
-        setNewPost(event.target.value)
+    const listStyle = {
+        margin: 0
     }
 
     useEffect(() => {
@@ -34,15 +22,11 @@ const Posts = () => {
 
     return (
         <>
-            <ul>
-                {posts.map((post, i) => <li key={i}>{post.content}</li>)}
+            <ul style={listStyle}>
+                {posts.map((post, i) => <Post post={post} key={i}/>)}
             </ul>
-            <form onSubmit={handlePost}>
-                <input value={newPost} onChange={handleChange}></input>
-                <button type="submit">Submit new post</button>
-            </form>
         </>
     )
 }
 
-export default Posts 
+export default Posts

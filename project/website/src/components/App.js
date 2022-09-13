@@ -1,16 +1,22 @@
-import Map from './Map';
-import Button from './Button';
 import Posts from './Posts';
+import Newpost from './Newpost';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 const App = () => {
+  const appStyle = {
+    margin: 5,
+    fontFamily: 'monospace',
+    fontSize: 16
+  }
+
   return (
-    <>
+    <div style={appStyle}>
       <Navbar />
       <Posts />
-      <Map />
-      <Button />
-    </>
+      <Newpost />
+      <Footer />
+    </div>
   )
 }
 
