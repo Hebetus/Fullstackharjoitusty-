@@ -1,5 +1,4 @@
 import Posts from './Posts';
-import Newpost from './Newpost';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
@@ -14,7 +13,6 @@ const App = () => {
     <div style={appStyle}>
       <Navbar />
       <Posts />
-      <Newpost />
       <Footer />
     </div>
   )

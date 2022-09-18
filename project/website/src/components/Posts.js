@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import Post from './Post'
+import Newpost from './Newpost'
 
 const Posts = () => {
     const [posts, setPosts] = useState([])
@@ -11,19 +12,30 @@ const Posts = () => {
     }
 
     useEffect(() => {
-        const postsPromise = axios.get('http://localhost:3001/posts')
-        console.log(postsPromise)
+        const postsPromise = axios.get('http://localhost:3001/api/posts/')
         postsPromise.then((result) => {
-          console.log(result.data)
           setPosts(result.data)
         })
       }, []
     )
 
+    const deletePost = (id) => {
+        const newPosts = [...posts]
+        const newPostsFiltered = newPosts.filter(post => post.id !== id)
+        setPosts(newPostsFiltered)
+    }
+
+    const addPost = (newPost) => {
+        const newPosts = [...posts]
+        newPosts.push(newPost)
+        setPosts(newPosts)
+    }
+
     return (
         <>
             <ul style={listStyle}>
-                {posts.map((post, i) => <Post post={post} key={i}/>)}
+                {posts.map((post) => <Post post={post} deletePost={deletePost}/>)}
+                <Newpost addPost={addPost} postsLength={posts.length}/>
             </ul>
         </>
     )

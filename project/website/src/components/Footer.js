@@ -1,10 +1,12 @@
 const Footer = () => {
     const footerStyle = {
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        padding: 5
       }
     
       const paragraphStyle = {
         color: 'red',
+        fontFamily: 'monospace'
       }
     
     return (
