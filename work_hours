@@ -6,4 +6,15 @@
 29.7.2022 Reconfiguring project folder structure 1
 30.7.2022 Created external stylesheet file for index html file 1
 3.8.2022 Created basic functionality to add posts to the webpage 1
-Total hours: 8
+6.8.2022 Code refactoring 1
+6.8.2022 Server/backend initialization 1
+11.8.2022 Refactorin index.html, made a project todo-list, backend-development
+13.8.2022 Bug-fixing relating to component states and usage of the effect hook 2
+14.8.2022 Fixing the map component 1
+12.9.2022 Making a separate component for an individual post, reconfigured several style definitions 1
+13.9.2022 Extracting the form and input for a new post into its own component. Also reconfigured the component hierarchy 1
+14.9.2022 Started work and made first stable version of an express server/restful api for my fronted 1
+14.9.2022 Added a delete button for posts 1
+15.9.2022 Implementing the delete button, server research 1
+18.9.2022 System updates and component hierarchy refactoring 1
+Total hours: 20
