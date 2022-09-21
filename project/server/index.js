@@ -72,32 +72,32 @@ let posts = [
       {
         author: "Default",
         content: "jep",
-        id: 16
+        id: 13
       },
       {
         author: "Default",
         content: "Ensimmäinen uusi testi",
-        id: 17
+        id: 14
       },
       {
         author: "Default",
         content: "Pitänee lisätä seuraavaks käyttäjätoiminto :D",
-        id: 18
+        id: 15
       },
       {
         author: "Default",
         content: "sdfsdf\nasdfasdfasafg\nasfasfasf",
-        id: 19
+        id: 16
       },
       {
         author: "Default",
         content: "Ideana on siis et täst lähtee tää ekosysteemi käyntiin",
-        id: 20
+        id: 17
       },
       {
         author: "Default",
         content: "Voin ainaki jutella tääl itekseni tosistaseks :D",
-        id: 21
+        id: 18
       }
 ]
 
@@ -112,9 +112,11 @@ app.get('/api/posts/', (request, response) => {
 app.post('/api/posts/', (request, response) => {
     console.log(request.body)
     const newPost = request.body
+    newPost.id = posts.length
+    posts = posts.concat(newPost)
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log('Selain käynnissä portissa 3001')
 })

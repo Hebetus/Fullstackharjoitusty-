@@ -28,15 +28,22 @@ const Newpost = ({ addPost, postsLength }) => {
         fontFamily: 'monospace'
     }
 
+    const formStyle = {
+        padding: 5,
+        fontFamily: 'monospace'
+    }
+
     const buttonStyle = {
         backgroundColor: 'black',
         color: 'white',
-        fontFamily: 'monospace'
+        fontFamily: 'monospace',
+        position: 'absolute',
+        right: 20
     }
 
     return (
         <li style={newpostStyle}>
-            <form onSubmit={handlePost}>
+            <form onSubmit={handlePost} style={formStyle}>
                 <input value={newPost} onChange={handleChange} style={newpostStyle}></input>
                 <button type="submit" style={buttonStyle}>Lisää uusi postaus?</button>
             </form>
