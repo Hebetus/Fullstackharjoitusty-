@@ -17,4 +17,7 @@
 14.9.2022 Added a delete button for posts 1
 15.9.2022 Implementing the delete button, server research 1
 18.9.2022 System updates and component hierarchy refactoring 1
-Total hours: 20
+19.9.2022 Added and reconfigured some css 1
+21.9.2022 Deployed backend to the web by using Fly.io 1
+4.10.2022 Deployed backend to heroku 1
+Total hours: 23
