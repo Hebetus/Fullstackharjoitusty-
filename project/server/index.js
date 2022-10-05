@@ -104,6 +104,7 @@ let posts = [
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.use(express.static('build'))
 
 app.get('/api/posts/', (request, response) => {
     response.json(posts)
