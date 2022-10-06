@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const Newpost = ({ addPost, postsLength }) => {
+    const baseUrl = '/api/posts'
     const [newPost, setNewPost] = useState("Uusi postaus?")
 
     const handlePost = (event) => {
@@ -11,7 +12,7 @@ const Newpost = ({ addPost, postsLength }) => {
             content: newPost,
             id: postsLength
         }
-        axios.post('http://localhost:3001/api/posts/', newPostJSON).then((result) => {
+        axios.post(baseUrl, newPostJSON).then((result) => {
             console.log(result)
         })
         addPost(newPostJSON)

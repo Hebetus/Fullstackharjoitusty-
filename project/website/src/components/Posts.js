@@ -5,6 +5,7 @@ import Post from './Post'
 import Newpost from './Newpost'
 
 const Posts = () => {
+    const baseUrl = '/api/posts'
     const [posts, setPosts] = useState([])
 
     const listStyle = {
@@ -12,7 +13,7 @@ const Posts = () => {
     }
 
     useEffect(() => {
-        const postsPromise = axios.get('http://localhost:3001/api/posts/')
+        const postsPromise = axios.get(baseUrl)
         postsPromise.then((result) => {
           setPosts(result.data)
         })
