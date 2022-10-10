@@ -10,14 +10,17 @@
     "build:ui": "rm -rf build && cd ../website/ && npm run build && cp -r build ../server",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
-    "logs:prod": "fly logs"
+    "logs:prod": "fly logs",
+    "mongoose": "node mongo.js"
   },
   "author": "Emil Hellberg",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.1",
-    "http": "^0.0.1-security"
+    "http": "^0.0.1-security",
+    "mongoose": "^6.6.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
