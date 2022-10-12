@@ -1,21 +1,14 @@
 const mongoose = require('mongoose')
 
-/**
- * INITIAL LOGIN FUNCTIONALITY FOR CLI LOGIN
-if(process.argv.length < 3) {
-    console.log('give username and password as arguments')
-    process.exit(1)
-}
-
-const password = process.argv[2]
-*/
-
-const databaseUrl = 'mongodb+srv://fullstack:7MSAZ1cj1NwXZmad@cluster0.manjara.mongodb.net/?retryWrites=true&w=majority'
+const username = process.env.USRNAME
+const password = process.env.PASSWORD
+const loginUrl = `mongodb+srv://${username}:${password}@cluster0.manjara.mongodb.net/?retryWrites=true&w=majority`
 
 /**
  * ADD ERROR HANDLER FOR CONNECTION REFUSAL
 */
-mongoose.connect(databaseUrl)
+
+mongoose.connect(loginUrl)
 
 const postsSchema = new mongoose.Schema({
     author: String,
@@ -41,12 +34,27 @@ const retrievePosts = () => {
         result.forEach(post => {
             posts.push(post)
         })
-        console.log(posts)
+        console.log('posts retrieved from database!')
     })
     return posts
 }
 
+const deletePost = (objId) => {
+    Post.findByIdAndRemove(objId).then(result => {
+        console.log(`post ${objId} removed from database!`)
+    })
+}
+
+const retrieveIndividual = (objId) => {
+    Post.findById(objId).then(post => {
+        console.log(`post ${objId} retrieved!`)
+        return post
+    })
+}
+
 module.exports = {
     sendPost,
-    retrievePosts
+    retrievePosts,
+    deletePost,
+    retrieveIndividual
 }
