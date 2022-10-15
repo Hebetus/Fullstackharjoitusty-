@@ -1,21 +1,24 @@
 const express = require('express')
 const cors = require('cors')
-const mongoose = require('mongoose')
 const ObjectId = require('mongodb').ObjectId
 
-const data = require('./data')
-const mongo = require('./mongo')
+const mongo = require('./models/mongo')
 
 let posts = mongo.retrievePosts()
 
 const app = express()
 app.use(cors())
-app.use(express.json())
 app.use(express.static('build'))
+app.use(express.json())
 
 /**
- * ADD MIDDLEWARE FOR UNKNOWN ENPOINTS/URL AND FOR ERROR HANDLING
- */
+ * TO BE FULLY IMPLEMENTED!
+const requestLogger = () => {
+
+}
+
+app.use(requestLogger)
+*/
 
  app.get('api/posts/:id', (request, response) => {
     const id = new ObjectId(request.params.id)
@@ -31,6 +34,10 @@ app.post('/api/posts/', (request, response) => {
     mongo.sendPost(request.body.author, request.body.content)
 })
 
+/**
+ * IMPLEMENT MODIFICATION OF INDIVIDUAL POST
+ */
+
 app.delete('/api/posts/:id', (request, response) => {
     const id = request.params.id
     const objId = new ObjectId(id)
@@ -38,9 +45,18 @@ app.delete('/api/posts/:id', (request, response) => {
     response.status(204).end()
 })
 
-/**
- * IMPLEMENT RETRIEVAL OF A SINGLE POST
- */
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({ error: 'unknown endpoint' })
+}
+
+app.use(unknownEndpoint)
+
+const errorHandler = (error, request, response, next) => {
+    console.error(error.message)
+    next(error)
+}
+
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
