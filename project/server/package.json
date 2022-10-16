@@ -8,9 +8,9 @@
     "dev": "nodemon index.js",
     "test": "test",
     "build:ui": "rm -rf build && cd ../website/ && npm run build && cp -r build ../server",
-    "deploy": "fly deploy",
+    "deploy": "flyctl deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
-    "logs:prod": "fly logs",
+    "logs:prod": "flyctl logs",
     "mongoose": "node mongo.js"
   },
   "author": "Emil Hellberg",

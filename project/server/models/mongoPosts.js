@@ -6,20 +6,20 @@ const loginUrl = `mongodb+srv://${username}:${password}@cluster0.manjara.mongodb
 
 mongoose.connect(loginUrl)
     .then(result => {
-        console.log('connected to users collection!')
+        console.log('connected to posts collection!')
     })
     .catch(error => {
         console.log('error connecting to database!')
         console.log(error.content)
     })
 
-const userSchema = new mongoose.Schema({
-    username: String,
-    password: String
+const postsSchema = new mongoose.Schema({
+    author: String,
+    content: String,
 })
-
-const User = mongoose.model('User', userSchema)
+  
+const Post = mongoose.model('Post', postsSchema)
 
 module.exports = {
-    User
+    Post
 }
