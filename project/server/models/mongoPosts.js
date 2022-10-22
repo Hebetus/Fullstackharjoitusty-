@@ -16,10 +16,13 @@ mongoose.connect(loginUrl)
 const postsSchema = new mongoose.Schema({
     author: String,
     content: String,
+    date: Date,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
 })
   
 const Post = mongoose.model('Post', postsSchema)
 
-module.exports = {
-    Post
-}
+module.exports = Post

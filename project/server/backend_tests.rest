@@ -1,4 +1,4 @@
 //GET http://localhost:3001/api/posts/
-//DELETE http://localhost:3001/api/posts/6345b55c419d81a6a140279c
+DELETE http://localhost:3001/api/posts/6345b55c419d81a6a140279c
 //GET http://localhost:3001/api/posts/6342a85b4ebde9f2a237ea9d
-PUT http://localhost:3001/api/posts/6342a85b4ebde9f2a237ea9d 
+//PUT http://localhost:3001/api/posts/6342a85b4ebde9f2a237ea9d

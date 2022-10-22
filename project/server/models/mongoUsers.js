@@ -15,11 +15,22 @@ mongoose.connect(loginUrl)
 
 const userSchema = new mongoose.Schema({
     username: String,
-    password: String
+    name: String,
+    passwordhash: String,
+    posts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Post'
+        }
+    ],
+})
+
+userSchema.set('toJSON', {
+    transform: (document, returnnedObject) => {
+        delete returnnedObject.passwordhash
+    }
 })
 
 const User = mongoose.model('User', userSchema)
 
-module.exports = {
-    User
-}
+module.exports = User

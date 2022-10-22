@@ -1,0 +1,16 @@
+const postsRouter = require('express').Router()
+const mongoPosts = require('../models/mongoPosts')
+
+const Post = mongoPosts
+const ObjectId = require('mongodb').ObjectId
+
+postsRouter.delete('/', (request, response) => {
+    const id = request.params.id
+    const objId = new ObjectId(id)
+    Post.findByIdAndRemove(objId).then(result => {
+        console.log(`post ${objId} removed from database!`)
+    })
+    response.status(204).end()
+})
+
+module.exports = postsRouter
