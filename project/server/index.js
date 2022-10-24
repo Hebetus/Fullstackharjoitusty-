@@ -28,7 +28,6 @@ app.use(requestLogger)
  * NEW POSTS AREN'T UPDATED TO FRONTEND
  */
 
-
 app.get('/api/posts/:id', (request, response) => {
     const objId = new ObjectId(request.params.id)
     Post.findById(objId)
