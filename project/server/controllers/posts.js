@@ -1,7 +1,10 @@
 const postsRouter = require('express').Router()
 const mongoPosts = require('../models/mongoPosts')
+const mongoUsers = require('../models/mongoUsers')
+const ObjectId = require('mongodb').ObjectId
 
 const Post = mongoPosts
+const User = mongoUsers
 
 let posts = []
 Post.find({}).then(result => {
@@ -15,19 +18,22 @@ postsRouter.get('/', (request, response) => {
     response.send(posts)
 })
 
-postsRouter.post('/', (request, response) => {
+postsRouter.post('/', async (request, response) => {
+    const objId = new ObjectId(request.body.userId)    
+    const user = await User.findById(objId)
+
     const sentPost = new Post({
         author: request.body.author,
         content: request.body.content,
         date: new Date(),
-        user: null
+        user: user._id
     })
 
-    sentPost.save().then(result => {
-        console.log('post saved through mongo module!')
-    })
+    const savedPost = await sentPost.save()
+    user.posts = user.posts.concat(savedPost._id)
+    await user.save()
 
-    response.status(204).end()
+    response.send(savedPost)
 })
 
 module.exports = postsRouter

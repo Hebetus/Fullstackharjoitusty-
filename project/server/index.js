@@ -24,6 +24,10 @@ app.use(express.json())
 
 app.use(requestLogger)
 
+/**
+ * NEW POSTS AREN'T UPDATED TO FRONTEND
+ */
+
 
 app.get('/api/posts/:id', (request, response) => {
     const objId = new ObjectId(request.params.id)
@@ -40,6 +44,11 @@ app.get('/api/posts/:id', (request, response) => {
  * TRY MOVING ALL ENPOINTS TO A SINGLE FILE
 app.use('/api/posts/:id', individualPostRouter)
 */
+
+/**
+ * BETTER NAMES FOR URL ENDPOINT FILES!
+ * REFACTOR .THEN SYNTAX TO ASYNC- AWAIT
+ */
 
 app.use('/api/posts/', postsRouter)
 
