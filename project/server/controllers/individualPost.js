@@ -5,6 +5,7 @@ const Post = mongoPosts
 const ObjectId = require('mongodb').ObjectId
 
 postsRouter.get('/', (request, response) => {
+    console.log(request.body)
     const objId = new ObjectId(request.params.id)
     Post.findById(objId)
         .then(result => {

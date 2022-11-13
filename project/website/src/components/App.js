@@ -9,6 +9,10 @@ const App = () => {
     fontSize: 16
   }
 
+  /**
+   * FIX BUG THAT DELETES ALL POSTS FROM THE VIEW
+   */
+  
   return (
     <div style={appStyle}>
       <Navbar />

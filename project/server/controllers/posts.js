@@ -2,6 +2,7 @@ const postsRouter = require('express').Router()
 const mongoPosts = require('../models/mongoPosts')
 const mongoUsers = require('../models/mongoUsers')
 const ObjectId = require('mongodb').ObjectId
+const jwt = require('jsonwebtoken')
 
 const Post = mongoPosts
 const User = mongoUsers
@@ -18,9 +19,34 @@ postsRouter.get('/', (request, response) => {
     response.send(posts)
 })
 
+const getTokenFrom = request => {
+    const authorization = request.get('authorization')
+    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+        return authorization.substring(7)
+    }
+    return null
+}
+
 postsRouter.post('/', async (request, response) => {
-    const objId = new ObjectId(request.body.userId)    
-    const user = await User.findById(objId)
+    const body = request.body
+    const token = getTokenFrom(request)
+    let decodedToken
+    console.log(token)
+    
+    try {
+        decodedToken = jwt.verify(token, process.env.SECRET)
+    }
+    catch (error) {
+        console.log('Invalid token!')
+        console.log(error)
+    }
+
+    if (!token || !decodedToken.id) {
+        return response.status(401).json({ error: 'token missing or invalid'})
+    }
+
+    const user = await User.findById(decodedToken.id)
+    console.log(user)
 
     const sentPost = new Post({
         author: request.body.author,

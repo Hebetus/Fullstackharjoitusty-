@@ -7,6 +7,8 @@ const modificationRouter = require('./controllers/modifyPost')
 
 const newUserRouter = require('./controllers/newUser')
 
+const loginRouter = require('./controllers/login')
+
 const unknownEndpoint = require('./controllers/uknownEndpoint')
 
 const requestLogger = require('./middleware/requestLogger')
@@ -41,10 +43,9 @@ app.get('/api/posts/:id', (request, response) => {
 /**
  * TO BE FULLY IMPLEMENTED
  * TRY MOVING ALL ENPOINTS TO A SINGLE FILE
-app.use('/api/posts/:id', individualPostRouter)
-*/
-
-/**
+ * 
+ * app.use('/api/posts/:id', individualPostRouter)
+ * 
  * BETTER NAMES FOR URL ENDPOINT FILES!
  * REFACTOR .THEN SYNTAX TO ASYNC- AWAIT
  */
@@ -54,6 +55,8 @@ app.use('/api/posts/', postsRouter)
 app.use('/api/posts/:id', modificationRouter)
 
 app.use('/api/users/', newUserRouter)
+
+app.use('/api/login/', loginRouter)
 
 app.use(unknownEndpoint)
 

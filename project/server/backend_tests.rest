@@ -3,3 +3,10 @@
 //GET http://localhost:3001/api/posts/6342a85b4ebde9f2a237ea9d
 //PUT http://localhost:3001/api/posts/6342a85b4ebde9f2a237ea9d
 
+GET http://localhost:3001/api/posts/6345b55c419d81a6a140279c
+
+Content-Type: application/json
+
+{
+    "user_id": "6345b55c419d81a6a140279c"
+}
