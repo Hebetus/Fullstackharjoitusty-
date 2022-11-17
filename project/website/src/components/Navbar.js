@@ -18,12 +18,12 @@ const Navbar = () => {
 
     return(
         <>
-            <nav style={navbarStyle}>
-                    <li>Testi 1</li>
-                    <li>Testi 2</li>
-                    <li>Testi 3</li>
-                    <Login />
-            </nav>
+                <li key="a">Testi 1</li>
+                <li key="b">Testi 2</li>
+                <li key="c">Testi 3</li>
+                <Login />
+                <p>Hei!, rekisteröitymistoiminnallisuus on vielä työn alla, työskentelemme taukoamatta puutteellisuuden korjaamiseksi</p>
+                <p>T. Ylläpito ❤️</p>
         </>
     )
 }

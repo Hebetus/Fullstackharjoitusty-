@@ -1,4 +1,9 @@
+import { useDispatch } from 'react-redux'
+import { removePost } from '../reducers/postsReducer'
+
 const Post = ({ post, deletePost }) => {
+    const dispatch = useDispatch()
+
     const postStyle = {
         borderStyle: 'solid',
         padding: 5
@@ -12,16 +17,14 @@ const Post = ({ post, deletePost }) => {
 
     const handleClick = (event) => {
         event.preventDefault()
-        deletePost(post.id)
+        dispatch(removePost(post._id.toString()))
     }
 
     return (
-        <>
-            <li key={post.id}>
-                <p style={postStyle}>{post.author} <button style={buttonStyle} onClick={handleClick}>Poista</button></p>
-                <p>{post.content}</p>
-            </li>
-        </>
+        <li key={post._id}>
+            <p style={postStyle}>{post.author} <button style={buttonStyle} onClick={handleClick}>Poista</button></p>
+            <p>{post.content}</p>
+        </li>
     )
 }
 

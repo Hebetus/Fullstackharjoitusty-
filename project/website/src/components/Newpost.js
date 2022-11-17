@@ -1,9 +1,16 @@
-import { useState } from 'react';
-import axios from 'axios';
+import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
+import { postChange } from '../reducers/newpostReducer'
 
 const Newpost = ({ addPost, postsLength }) => {
     const baseUrl = '/api/posts'
-    const [newPost, setNewPost] = useState("Uusi postaus?")
+
+    const newPost = useSelector(state => state.newpost)
+
+    const dispatch = useDispatch()
+    const setNewPost = (newPost) => {
+        dispatch(postChange(newPost))
+    }
 
     const handlePost = (event) => {
         event.preventDefault()
