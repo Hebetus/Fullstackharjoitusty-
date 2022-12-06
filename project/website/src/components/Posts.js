@@ -35,12 +35,12 @@ const Posts = () => {
     )
 
     return (
-        <>
+        <div>
             <ul style={listStyle}>
                 {posts.map((post) => <Post post={post} deletePost={deletePost} key={Math.random()} />)}
-                <Newpost addPost={addNewPost} postsLength={posts.length}/>
+                <Newpost addPost={addNewPost} postsLength={posts.length} />
             </ul>
-        </>
+        </div>
     )
 }
 

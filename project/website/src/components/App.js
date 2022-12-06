@@ -1,13 +1,16 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { Link, Route, Routes, BrowserRouter as Router } from 'react-router-dom'
+
 import { userChange } from '../reducers/userReducer'
 
 import Posts from './Posts'
-import Navbar from './Navbar'
+import Login from './Login'
+import Registration from './Registration'
+import Frontpage from './Frontpage'
+import Footer from './Footer'
 
 const App = () => {
-  const user = useSelector(state => state.user)
-
   const appStyle = {
     margin: 5,
     fontFamily: 'monospace',
@@ -31,14 +34,32 @@ const App = () => {
   }, [])
 
   /**
+   * ADD CONTENT TO FRONTPAGE AND REGISTRATION COMPONENTS
    * IMPLEMENT LOGOUT FUNCTIONALITY AND CONDITIONAL RENDERING BASED ON LOGIN-LOGOUT STATE
-   * IMPLEMENT REGISTRATION FUNCTIONALITY
+   * CONSIDER IMPLEMENTING A UI FRAMEWORK LIKE REACT BOOTSTRAP OR MATERIELUI
+   * ADD HTML SUPPORT FOR EMAIL AND PASSWORD FIELDS IN REGISTATION AND LOGIN COMPONENTS
    */
 
   return (
-    <div style={appStyle}>
-      <Navbar />
-      <Posts />
+    <div>
+      <Router style={appStyle} >
+        <div>
+          <div>
+            <Link style={appStyle} to="/">etusivu</Link>
+            <Link style={appStyle} to="/posts">postaukset</Link>
+            <Link style={appStyle} to="/login">kirjautuminen</Link>
+            <Link style={appStyle} to="/registration">rekisteröityminen</Link>
+          </div>
+
+          <Routes>
+            <Route path="/posts" element={<Posts style={appStyle} />} />
+            <Route path="/login" element={<Login style={appStyle} />} />
+            <Route path="/registration" element={<Registration style={appStyle} />} />
+            <Route path="/" element={<Frontpage />} />
+          </Routes>
+        </div>
+      </Router>
+      <Footer />
     </div>
   )
 }

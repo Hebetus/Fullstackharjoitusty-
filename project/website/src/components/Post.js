@@ -2,6 +2,12 @@ import { useDispatch } from 'react-redux'
 import { removePost } from '../reducers/postsReducer'
 
 const Post = ({ post, deletePost }) => {
+    const appStyle = {
+        margin: 5,
+        fontFamily: 'monospace',
+        fontSize: 16
+    }
+
     const dispatch = useDispatch()
 
     const postStyle = {
@@ -21,7 +27,7 @@ const Post = ({ post, deletePost }) => {
     }
 
     return (
-        <li key={post._id}>
+        <li key={post._id} style={appStyle}>
             <p style={postStyle}>{post.author} <button style={buttonStyle} onClick={handleClick}>Poista</button></p>
             <p>{post.content}</p>
         </li>

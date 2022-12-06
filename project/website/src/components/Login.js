@@ -1,8 +1,18 @@
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
+
 import { usernameChange, passwordChange } from '../reducers/loginReducer'
+import { userChange } from '../reducers/userReducer'
 
 const Login = () => {
+    const appStyle = {
+        margin: 5,
+        fontFamily: 'monospace',
+        fontSize: 16
+    }
+
+    const user = useSelector(state => state.user)
+
     const loginUrl = '/api/login'
 
     const credentials = useSelector(state => state.login)
@@ -15,18 +25,6 @@ const Login = () => {
     }
     const setPassword = (password) => {
         dispatch(passwordChange(password))
-    }
-
-    const inputStyle = {
-        borderStyle: 'solid',
-        padding: 10,
-        color: 'black'
-    }
-
-    const loginStyle = {
-        
-        padding: 10,
-        color: 'black'
     }
 
     const handleLogin = (event) => {
@@ -53,13 +51,26 @@ const Login = () => {
     const handlePasswordChange = (event) => {
         setPassword(event.target.value)
     }
+
+    const handleLogout = (event) => {
+        event.preventDefault()
+        dispatch(userChange({}))
+    }
     
     return (
-            <form onSubmit={handleLogin} style={loginStyle}>
-                <input value={username} onChange={handleUsernameChange} style={inputStyle}></input>
-                <input value={password} onChange={handlePasswordChange} style={inputStyle}></input>
-                <button type="submit" style={inputStyle}>Kirjaudu</button>
+        <div style={appStyle}>
+            <form onSubmit={handleLogin}>
+                <div>
+                    <p>Käyttäjänimi:</p>
+                    <input value={username} onChange={handleUsernameChange} style={appStyle}></input>
+                </div>
+                <div>
+                    <p>Salasana:</p>
+                    <input value={password} onChange={handlePasswordChange} style={appStyle}></input>
+                </div>
+                <button type="submit" style={appStyle}>Kirjaudu</button>
             </form>
+        </div>
     )
 }
 
