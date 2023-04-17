@@ -9,6 +9,7 @@ import Login from './Login'
 import Registration from './Registration'
 import Frontpage from './Frontpage'
 import Footer from './Footer'
+import Notification from './Notification'
 
 const App = () => {
   const appStyle = {
@@ -34,14 +35,12 @@ const App = () => {
   }, [])
 
   /**
-   * ADD CONTENT TO FRONTPAGE AND REGISTRATION COMPONENTS
-   * IMPLEMENT LOGOUT FUNCTIONALITY AND CONDITIONAL RENDERING BASED ON LOGIN-LOGOUT STATE
-   * CONSIDER IMPLEMENTING A UI FRAMEWORK LIKE REACT BOOTSTRAP OR MATERIELUI
-   * ADD HTML SUPPORT FOR EMAIL AND PASSWORD FIELDS IN REGISTATION AND LOGIN COMPONENTS
+   * ADD SUPPORT FOR GRAPHQL FOR THE POSTS COMPONENT
    */
 
   return (
     <div>
+      <Notification />
       <Router style={appStyle} >
         <div>
           <div>

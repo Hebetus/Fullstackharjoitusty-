@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { emailChange, usernameChange, passwordChange } from '../reducers/registrationReducer'
+import { nameChange, emailChange, usernameChange, passwordChange } from '../reducers/registrationReducer'
 
 const Registration = () => {
     const appStyle = {
@@ -13,19 +13,31 @@ const Registration = () => {
     const registrationUrl = '/api/users'
 
     const credentials = useSelector(state => state.registration)
+    const name = credentials.name
     const email = credentials.email
     const username = credentials.username
     const password = credentials.password
 
     const dispatch = useDispatch()
+    
+    const setName = (name) => {
+        dispatch(nameChange(name))
+    }
+
     const setEmail = (email) => {
         dispatch(emailChange(email))
     }
+
     const setUserName = (username) => {
         dispatch(usernameChange(username))
     }
+
     const setPassword = (password) => {
         dispatch(passwordChange(password))
+    }
+
+    const handleNameChange = (event) => {
+        setName(event.target.value)
     }
 
     const handleEmailChange = (event) => {
@@ -43,6 +55,7 @@ const Registration = () => {
     const handleRegistration = (event) => {
         event.preventDefault()
         const userForRegistration = {
+            name: name,
             email: email,
             username: username,
             password: password
@@ -50,11 +63,19 @@ const Registration = () => {
         axios.post(registrationUrl, userForRegistration).then((response) => {
             console.log(response)
         })
+        setName('')
+        setEmail('')
+        setUserName('')
+        setPassword('')
     }
 
     return (
         <div style={appStyle}>
             <form onSubmit={handleRegistration}>
+                <div>
+                    <p>Nimi: </p>
+                    <input value={name} onChange={handleNameChange}></input>
+                </div>
                 <div>
                     <p>Sähköposti: </p>
                     <input type="email" value={email} onChange={handleEmailChange}></input>

@@ -1,10 +1,13 @@
 const registrationReducer = (state = {
+    name: '',
     email: '',
     username: '',
     password: ''
 },
 action) => {
     switch(action.type) {
+        case 'SET_NAME':
+            return {...state, name: action.data}
         case 'SET_EMAIL':
             return {...state, email: action.data}
         case 'SET_USERNAME':
@@ -16,6 +19,13 @@ action) => {
     }
 }
 
+export const nameChange = data => {
+    return {
+        type: 'SET_NAME',
+        data: data
+    }
+}
+ 
 export const emailChange = data => {
     return {
         type: 'SET_EMAIL',

@@ -14,6 +14,7 @@ mongoose.connect(loginUrl)
     })
 
 const userSchema = new mongoose.Schema({
+    email: String,
     username: String,
     name: String,
     passwordHash: String,

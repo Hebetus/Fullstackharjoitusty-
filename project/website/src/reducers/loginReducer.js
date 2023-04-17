@@ -1,6 +1,7 @@
 const loginReducer = (state = {
     username: '',
-    password: ''
+    password: '',
+    loggedIn: false
 },
 action) => {
     switch (action.type) {
@@ -8,6 +9,8 @@ action) => {
             return {...state, username: action.data}
         case 'SET_PASSWORD':
             return {...state, password: action.data}
+        case 'SET_LOGGEDINSTATUS':
+            return {...state, loggedIn: action.data}
         default:
             return state
     }
@@ -27,4 +30,11 @@ export const passwordChange = data => {
     }
 }
 
+export const loginStatusChange = data => {
+    return {
+        type: 'SET_LOGGEDINSTATUS',
+        data: data
+    }
+}
+ 
 export default loginReducer

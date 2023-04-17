@@ -1,15 +1,11 @@
-import { useEffect } from 'react'
-import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { postsChange, removePost, addPost } from '../reducers/postsReducer'
+import { gql, useQuery } from '@apollo/client'
 
 import Post from './Post'
 import Newpost from './Newpost'
 
 const Posts = () => {
-    const baseUrl = '/api/posts'
-
-    const posts = useSelector(state => state.posts)
     const dispatch = useDispatch()
     const setPosts = (content) => {
         dispatch(postsChange(content))
@@ -21,18 +17,30 @@ const Posts = () => {
         dispatch(addPost(newPost))
     }
 
-
     const listStyle = {
         margin: 0
     }
 
-    useEffect(() => {
-        const postsPromise = axios.get(baseUrl)
-        postsPromise.then((result) => {
-          setPosts(result.data)
-        })
-      }, []
-    )
+    const ALL_POSTS = gql`
+        query {
+            allPosts {
+                author
+                content
+            }
+        }  
+    `
+
+    const result = useQuery(ALL_POSTS)
+
+    if (result.loading) {
+        console.log('loading posts')
+    }
+
+    if (result.data) {
+        setPosts(result.data.allPosts)
+    }
+
+    const posts = useSelector(state => state.posts)
 
     return (
         <div>

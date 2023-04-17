@@ -5,6 +5,7 @@ import newpostReducer from './/newpostReducer'
 import postsReducer from './/postsReducer'
 import userReducer from './userReducer'
 import registrationReducer from './registrationReducer'
+import notificationReducer from './notificationReducer'
 
 const store = configureStore({
     reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
         newpost: newpostReducer,
         posts: postsReducer,
         user: userReducer,
-        registration: registrationReducer
+        registration: registrationReducer,
+        notification: notificationReducer
     }
 })
 
