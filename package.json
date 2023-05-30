@@ -11,6 +11,7 @@
     "dev": "nodemon index.js",
     "test": "test",
     "build:ui": "del build && cd ./website/ && npm run build && cp -r build ../",
+    "build:ui:pipeline": "cd ./website/ && npm run build && cp -r build ../",
     "deploy": "flyctl deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
     "logs:prod": "flyctl logs",
