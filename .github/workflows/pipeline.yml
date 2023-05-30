@@ -16,7 +16,7 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                 node-version: '16'
-            - uses: superfly/flyctl-actions/setup-flyctl@main
+            - uses: superfly/flyctl-actions/setup-flyctl@master
             - name: Install dependencies
               run: npm install
     
