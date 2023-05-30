@@ -19,6 +19,8 @@ jobs:
             - uses: superfly/flyctl-actions/setup-flyctl@master
             - name: Install dependencies
               run: npm install
+            - name: Install scripts
+              run: npm install react-scripts
             - name: Create production build
               run: npm run build:ui:pipeline
             - name: Deploy app
