@@ -10,7 +10,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "test",
-    "build:ui": "del build && cd ./website/ && npm run build && cp -r build ../",
+    "build:ui": "npx rimraf build && cd ./website/ && npm run build && cp -r build ../",
     "build:ui:pipeline": "cd ./website/ && npm install && npm run build && cp -r build ../",
     "deploy": "flyctl deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
@@ -30,9 +30,11 @@
     "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.10.0",
-    "mongoose": "^6.6.5"
+    "mongoose": "^6.6.5",
+    "rimraf": "^5.0.1"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.2.11",
     "nodemon": "^2.0.19"
   }
 }

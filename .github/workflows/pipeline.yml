@@ -22,7 +22,7 @@ jobs:
             - name: Install scripts
               run: npm install react-scripts
             - name: Create production build
-              run: npm run build:ui:pipeline
+              run: npm run build:ui
             - name: Deploy app
               if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
               run: flyctl deploy --remote-only
