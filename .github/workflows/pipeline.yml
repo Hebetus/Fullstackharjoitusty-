@@ -19,6 +19,13 @@ jobs:
             - uses: superfly/flyctl-actions/setup-flyctl@master
             - name: Install dependencies
               run: npm install
+            - name: Create production build
+              run: npm run build:ui
+            - name: Deploy app
+              if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
+              run: flyctl deploy --remote-only
+              env:
+                FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
     
     Tag_release:
         needs: [Build_test_and_deploy]
