@@ -4,6 +4,12 @@ echo "Build step"
 
 npm install
 
-npm run build:ui
+cd ./website
+
+npm install
+
+npm run build
+
+cp -r build ../
 
 exit 0
