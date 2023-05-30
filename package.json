@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "16.19.0"
+  },
   "name": "server",
   "version": "1.0.0",
   "description": "\"backend to my website study project\"",
@@ -7,7 +10,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "test",
-    "build:ui": "del build && cd ../website/ && npm run build && cp -r build ../server",
+    "build:ui": "del build && cd ./website/ && npm run build && cp -r build ../",
     "deploy": "flyctl deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
     "logs:prod": "flyctl logs",
