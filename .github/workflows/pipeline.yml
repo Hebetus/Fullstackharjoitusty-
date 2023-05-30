@@ -17,8 +17,6 @@ jobs:
               with:
                 node-version: '16'
             - uses: superfly/flyctl-actions/setup-flyctl@master
-            - name: Navigate to correct directory
-              run: cd ./project/server
             - name: Install dependencies
               run: npm install
     
