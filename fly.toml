@@ -1,12 +1,20 @@
-# fly.toml file generated for nettisivu on 2022-10-05T22:29:18+03:00
+# fly.toml app configuration file generated for nettisivu on 2023-05-30T15:03:20+03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
 app = "nettisivu"
 kill_signal = "SIGINT"
 kill_timeout = 5
-processes = []
+primary_region = "arn"
 
 [build]
   builder = "heroku/buildpacks:20"
+  [build.args]
+    NODE_VERSION = "16.19.0"
+
+[deploy]
+  release_command = "npm run build:ui:pipeline"
 
 [env]
   PORT = "8080"
@@ -14,6 +22,9 @@ processes = []
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
+
+[processes]
+  app = "node index.js"
 
 [[services]]
   http_checks = []
