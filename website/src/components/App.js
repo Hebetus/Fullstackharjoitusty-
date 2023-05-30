@@ -32,6 +32,7 @@ const App = () => {
       }
       setUser(loggedInUser)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   /**
