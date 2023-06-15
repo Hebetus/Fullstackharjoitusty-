@@ -17,10 +17,9 @@ jobs:
               with:
                 node-version: '16'
             - uses: superfly/flyctl-actions/setup-flyctl@master
-            - name: Switch to correct directory
-              run: cd backend/
+            
             - name: Install dependencies
-              run: npm install
+              run: cd backend/ && npm install
             - name: Deploy app to render
               if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
               run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
