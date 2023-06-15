@@ -18,7 +18,7 @@ jobs:
                 node-version: '16'
             - uses: superfly/flyctl-actions/setup-flyctl@master
             - name: Switch to correct directory
-              run: cd ../../backend
+              run: cd backend/
             - name: Install dependencies
               run: npm install
             - name: Deploy app to render
