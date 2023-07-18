@@ -1,9 +1,16 @@
-import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
-import { postChange } from '../reducers/newpostReducer'
+import { gql, useMutation } from '@apollo/client'
+
+import { postChange } from '../../reducers/newpostReducer'
 
 const Newpost = ({ addPost, postsLength }) => {
-    const baseUrl = '/api/posts'
+    const ADD_POST = gql`
+        mutation AddPost($content: String!, $author: String!) {
+            addPost(content: $content, author: $author)
+        }
+    `
+
+    const [mutate, { data, error, loading }] = useMutation(ADD_POST)
 
     const newPost = useSelector(state => state.newpost)
 
@@ -14,15 +21,18 @@ const Newpost = ({ addPost, postsLength }) => {
 
     const handlePost = (event) => {
         event.preventDefault()
+        let username = window.localStorage.getItem('username')
+        if (!username) {
+            username = 'Anonyymi'
+            console.log(username)
+        }
         const newPostJSON = {
-            author: "Default",
+            author: username,
             content: newPost,
             id: postsLength
         }
-        axios.post(baseUrl, newPostJSON).then((result) => {
-            console.log(result)
-        })
         addPost(newPostJSON)
+        mutate({ variables: { content: newPost, author: username } })
         setNewPost("Uusi postaus?")
     }
 
@@ -31,31 +41,32 @@ const Newpost = ({ addPost, postsLength }) => {
     }
 
     const newpostStyle = {
-        borderStyle: 'solid',
+        listStyleType: 'none',
         padding: 5,
         fontFamily: 'monospace'
     }
 
     const formStyle = {
-        padding: 5,
-        fontFamily: 'monospace'
+        fontFamily: 'monospace',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 
     const buttonStyle = {
         backgroundColor: 'black',
         color: 'white',
         fontFamily: 'monospace',
-        position: 'absolute',
-        right: 20
+        
     }
 
     return (
-        <li style={newpostStyle}>
+        <div style={newpostStyle}>
             <form onSubmit={handlePost} style={formStyle}>
                 <input value={newPost} onChange={handleChange} style={newpostStyle}></input>
-                <button type="submit" style={buttonStyle}>Lisää uusi postaus?</button>
+                <button type="submit" style={buttonStyle}>Lisää uusi postaus</button>
             </form>
-        </li>
+        </div>
     )
 }
 

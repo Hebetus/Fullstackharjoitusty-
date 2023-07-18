@@ -1,21 +1,30 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, Route, Routes, BrowserRouter as Router } from 'react-router-dom'
 
 import { userChange } from '../reducers/userReducer'
 
-import Posts from './Posts'
-import Login from './Login'
-import Registration from './Registration'
-import Frontpage from './Frontpage'
-import Footer from './Footer'
+import Posts from './board/Posts'
+import Logout from './login/Logout'
+import Login from './login/Login'
+import Registration from './registration/Registration'
+import Frontpage from './frontpage/Frontpage'
 import Notification from './Notification'
 
 const App = () => {
+  const [isLoggedIn, setLoginStatus] = useState(false)
+
   const appStyle = {
-    margin: 5,
+    padding: 10,
     fontFamily: 'monospace',
-    fontSize: 16
+    fontSize: 16,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  }
+
+  const rootStyle = {
+    backgroundColor: '#ccccb3'
   }
 
   const dispatch = useDispatch()
@@ -31,35 +40,33 @@ const App = () => {
         token: window.localStorage.getItem('token')
       }
       setUser(loggedInUser)
+      setLoginStatus(true)
+      console.log(loggedInUser)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  /**
-   * ADD SUPPORT FOR GRAPHQL FOR THE POSTS COMPONENT
-   */
-
   return (
-    <div>
+    <div style={rootStyle}>
       <Notification />
-      <Router style={appStyle} >
+      <Router>
         <div>
-          <div>
+          <div style={appStyle}>
             <Link style={appStyle} to="/">etusivu</Link>
-            <Link style={appStyle} to="/posts">postaukset</Link>
-            <Link style={appStyle} to="/login">kirjautuminen</Link>
-            <Link style={appStyle} to="/registration">rekisteröityminen</Link>
+            <Link style={appStyle} to="/posts">lauta</Link>
+            {isLoggedIn ? <Link style={appStyle} to="/logout">kirjaudu ulos</Link> : <Link style={appStyle} to="/login">kirjaudu</Link>}
+            {isLoggedIn ? null : <Link style={appStyle} to="/registration">rekisteröidy</Link>}
           </div>
 
           <Routes>
             <Route path="/posts" element={<Posts style={appStyle} />} />
-            <Route path="/login" element={<Login style={appStyle} />} />
-            <Route path="/registration" element={<Registration style={appStyle} />} />
+            <Route path="/logout" element={<Logout setLoginStatus={setLoginStatus} />} />
+            <Route path="/login" element={<Login style={appStyle} setLoginStatus={setLoginStatus} />} />
+            <Route path="/registration" element={<Registration style={appStyle} setLoginStatus={setLoginStatus} />} />
             <Route path="/" element={<Frontpage />} />
           </Routes>
         </div>
       </Router>
-      <Footer />
     </div>
   )
 }

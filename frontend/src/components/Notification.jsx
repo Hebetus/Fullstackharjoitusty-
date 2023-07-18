@@ -8,9 +8,7 @@ const Notification = () => {
         padding: 5,
         margin: 0,
         fontFamily: 'monospace',
-        fontSize: 16,
-        border: 'solid',
-        borderWidth: 10
+        fontSize: 16
     }
 
     if (!notification.show) {

@@ -1,0 +1,23 @@
+{
+  "name": "apollo-server",
+  "version": "1.0.0",
+  "description": "Apollo server for graphql queries",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Emil Hellberg",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.5.0",
+    "apollo-server": "^3.11.1",
+    "dotenv": "^16.0.3",
+    "graphql": "^16.6.0",
+    "mongoose": "^6.8.0",
+    "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.2.11"
+  }
+}

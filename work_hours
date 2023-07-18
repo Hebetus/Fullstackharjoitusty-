@@ -69,8 +69,22 @@
 12.12.2022 Added typedefs to apollo-server 1
 14.12.2022 Made initial ER-model for database (user and post entities etc.) 1
 15.12.2022 Added resolvers to apollo-server 1
-22.3.2022 Fixed mongoose authentication for apollo-server 1
-30.3.2022 Added support for graphql to the frontend 1
-30.3.2022 Moved apollo graphql server to the internet, hosted by flyio 1
-31.3.2022 Implemented feature for liking individual posts to the frontend 1
-Total hours: 75
+22.3.2023 Fixed mongoose authentication for apollo-server 1
+30.3.2023 Added support for graphql to the frontend 1
+30.3.2023 Moved apollo graphql server to the internet, hosted by flyio 1
+31.3.2023 Implemented feature for liking individual posts to the frontend 1
+21.6.2023 Changed components to jsx, added favicon to frontend, changed footer component to vanilla html component 1
+26.6.2023 Added ability to dislike posts, added component for replying to posts and showing replies 1
+27.6.2023 Added support for likes and replies to graphql server 1
+28.6.2023 Added support for dislike to graphql server 1
+29.6.2023 Improvement to frontend-ui, added ability to send replies to posts to graphql server 1
+1.7.2023 Added validation to registration and input fields 1
+4.7.2023 Added view for likes in frontend, improved ui 1
+4.7.2023 Added conditional rendering for login (login - logout) based on login status 1
+4.7.2023 Enabled liking and disliking via graphql from frontend 1
+5.7.2023 Logged in username will now be added to new posts, fixed bug to to do with login/logout 1
+5.7.2023 Added creation date of posts to frontend ui and graphql server 1
+5.7.2023 Added creation date of replies to frontend ui and graphql server 1
+6.7.2023 Created a map of märynummi 1
+18.7.2023 Created file structure for component hierarchy in the frontend 1
+Total hours: 89

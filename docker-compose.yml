@@ -1,0 +1,24 @@
+services:
+  frontend:
+    image: frontend-production
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      CI: true
+    container_name: frontend-production
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+  backend:
+    image: backend-production
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/usr/src/app
+    command: ["npm", "start"]
+    container_name: backend-production
+    ports:
+      - 3001:3001

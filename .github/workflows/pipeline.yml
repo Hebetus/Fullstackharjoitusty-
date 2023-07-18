@@ -17,8 +17,7 @@ jobs:
               with:
                 node-version: '16'
             - uses: superfly/flyctl-actions/setup-flyctl@master
-            
-            - name: Install dependencies
+            - name: Switch to correct dorectory & install dependencies
               run: cd backend/ && npm install
             - name: Deploy app to render
               if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}

@@ -1,0 +1,29 @@
+services:
+  frontend:
+    image: frontend-dev
+    build:
+      context: ./frontend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./frontend/src:/usr/src/app/src
+      - ./frontend/public:/usr/src/app/public
+    command: ["npm", "start"]
+    environment:
+      CI: true
+      CHOKIDAR_USEPOLLING: true
+      WATCHPACK_POLLING: true
+    container_name: frontend-dev
+    depends_on:
+      - backend
+  backend:
+    image: backend-dev
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./backend:/usr/src/app
+    command: ["npm", "run", "dev"]
+    environment:
+      USRNAME: fullstack
+      PASSWORD: 7MSAZ1cj1NwXZmad
+    
