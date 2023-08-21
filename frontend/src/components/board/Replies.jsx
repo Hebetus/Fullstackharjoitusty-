@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Reply from './Reply'
 import Newreply from './Newreply'
 
+import { paragraphStyle } from './BoardStyles'
 
 const Replies = ({ replies, _id }) => {
     const [realReplies, setReplies] = useState([])
@@ -19,10 +20,6 @@ const Replies = ({ replies, _id }) => {
         setReplies(realReplies.concat(reply))
     }
 
-    const paragraphStyle = {
-        fontStyle: 'italic'
-    }
-
     return (
         <div key={Math.random()}>
             {
@@ -32,7 +29,7 @@ const Replies = ({ replies, _id }) => {
                 {realReplies.map((reply) => <Reply reply={reply} key={Math.random()} />)}
             </div>
             :
-            <p style={paragraphStyle}>Ei vielä yhtään vastausta</p>
+            <p style={paragraphStyle()}>Ei vielä yhtään vastausta</p>
             }
             <Newreply _id={_id} addReply={addReply} />
         </div>

@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
+const { Sequelize } = require('sequelize')
 
 const postsRouter = require('./controllers/posts')
 const modificationRouter = require('./controllers/modifyPost')
@@ -30,7 +31,23 @@ app.use(unknownEndpoint)
 
 app.use(errorLogger)
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
+
+const sequelize = new Sequelize(process.env.DATABASE_URL)
+
+const main = async () => {
+    try {
+        await sequelize.authenticate()
+        console.log('connected to postgre-database')
+        sequelize.close()
+    }
+    catch (error) {
+        console.log('failed connecting to postgre-database', error)
+    }
+}
+
+main()
+
 app.listen(PORT, () => {
     console.log(`server running on port ${PORT}`)
 })

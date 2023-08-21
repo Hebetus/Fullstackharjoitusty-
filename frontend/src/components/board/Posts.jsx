@@ -1,85 +1,51 @@
 import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { postsChange, removePost, addPost } from '../../reducers/postsReducer'
-import { gql, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
+import { Link } from 'react-router-dom'
 
 import Post from './Post'
 import Newpost from './Newpost'
 
-const Posts = () => {
-    const [postsStatus, setPostsStatus] = useState([])
-    const [realPosts, setRealPosts] = useState([])
+import { ALL_POSTS } from '../../graphql/queries'
 
-    const dispatch = useDispatch()
-    const setPosts = (content) => {
-        dispatch(postsChange(content))
-    }
-    const deletePost = (id) => {
-        dispatch(removePost(id))
-    }
-    const addNewPost = (newPost) => {
-        console.log(newPost)
-        dispatch(addPost(newPost))
-        setPostsStatus(postsStatus.concat(newPost))
-        setRealPosts(realPosts.concat(newPost))
+import {
+    postsStyle, titleStyle, containerStyle,
+    contentStyle, tabStyle, tabtitleStyle,
+    linkStyle
+} from './BoardStyles'
 
-        if (result.loading) {
-            console.log('loading posts')
-        }
-
-        if (result.data) {
-            setPosts(result.data.allPosts)
-        }
-    }
-
-    const listStyle = {
-        margin: 0
-    }
-
-    const ALL_POSTS = gql`
-        query {
-            allPosts {
-                _id
-                author
-                content
-                date
-                likes
-                replies {
-                    author
-                    content
-                    date
-                    likes
-                }
-                user
-            }
-        }  
-    `
-
+const Posts = ({ isLoggedIn }) => {
+    const [posts, setPosts] = useState([])
     const result = useQuery(ALL_POSTS)
-
-    if (result.loading) {
-        console.log('loading posts')
-    }
-
-    if (result.data) {
-        setPosts(result.data.allPosts)
-    }
-
-    const posts = useSelector(state => state.posts)
 
     useEffect(() => {
         if (result.data) {
-            setRealPosts(result.data.allPosts)
+            setPosts(result.data.allPosts)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [result.loading])
+    }, [result.loading, result.data])
+
+    const deletePost = () => {}
+
+    const addNewPost = (post) => {
+        setPosts(posts.concat(post))
+    }
 
     return (
-        <div>
-            <ul style={listStyle} id='postsList'>
-                {realPosts.map((post) => <Post post={post} deletePost={deletePost} key={Math.random()} />)}
-                <Newpost addPost={addNewPost} postsLength={posts.length} />
-            </ul>
+        <div style={containerStyle()}>
+            <div style={tabStyle()}>
+                <p style={tabtitleStyle()}>Kaikki langat</p>
+                <Link to="/posts" style={linkStyle()}>Yleinen</Link>
+                <Link to="/posts" style={linkStyle()}>Uutiset</Link>
+                <Link to="/posts" style={linkStyle()}>Ilmoitukset</Link>
+                <Link to="/posts" style={linkStyle()}>Myynti/osto</Link>
+                <Link to="/posts" style={linkStyle()}>Työtarjoukset</Link>
+            </div>
+            <div style={contentStyle()}>
+                <p style={titleStyle()}>LAUTA</p>
+                <ul style={postsStyle()} id='postsList'>
+                    {posts.map((post) => <Post post={post} deletePost={deletePost} key={Math.random()} isLoggedIn={isLoggedIn} />)}
+                    <Newpost addPost={addNewPost} postsLength={posts.length} />
+                </ul>
+            </div>
         </div>
     )
 }

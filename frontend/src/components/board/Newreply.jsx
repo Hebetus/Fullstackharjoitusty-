@@ -1,16 +1,14 @@
 import { useState } from 'react'
-import { gql, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
+
+import { ADD_REPLY } from '../../graphql/mutations'
+
+import { boxStyle, replyStyle, replybuttonStyle } from './BoardStyles'
 
 const Newreply = ({ _id, addReply }) => {
     const [reply, setReply] = useState('')
 
-    const ADD_REPLY = gql`
-        mutation AddReply($addReplyId: String!, $reply: String!) {
-            addReply(id: $addReplyId, reply: $reply)
-        }
-    `
-
-    const [mutate, { data, error, loading }] = useMutation(ADD_REPLY)
+    const [mutate] = useMutation(ADD_REPLY)
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -29,25 +27,11 @@ const Newreply = ({ _id, addReply }) => {
         setReply(event.target.value)
     }
 
-    const replyStyle = {
-        borderStyle: 'solid',
-        padding: 5,
-        fontFamily: 'monospace'
-    }
-
-    const buttonStyle = {
-        backgroundColor: 'black',
-        color: 'white',
-        fontFamily: 'monospace',
-        position: 'absolute',
-        right: 20
-    }
-
     return (
-        <div>
+        <div style={boxStyle()}>
             <form onSubmit={handleSubmit}>
-                <input value={reply} onChange={handleChange} style={replyStyle}></input>
-                <button type="submit" style={buttonStyle}>Vastaa</button>
+                <input value={reply} onChange={handleChange} style={replyStyle()}></input>
+                <button type="submit" style={replybuttonStyle()}>Vastaa</button>
             </form>
         </div>
     )

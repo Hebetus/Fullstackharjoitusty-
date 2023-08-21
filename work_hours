@@ -85,6 +85,26 @@
 5.7.2023 Logged in username will now be added to new posts, fixed bug to to do with login/logout 1
 5.7.2023 Added creation date of posts to frontend ui and graphql server 1
 5.7.2023 Added creation date of replies to frontend ui and graphql server 1
-6.7.2023 Created a map of märynummi 1
+6.7.2023 Created a map (image file) of märynummi 1
 18.7.2023 Created file structure for component hierarchy in the frontend 1
-Total hours: 89
+20.7.2023 Isolated qraphql queries into own files and directories 1
+20.7.2023 Added separate frontpage for mobile users 1
+1.8.2023 Added view and component for the interactive map 1
+2.8.2023 Configured ElephantSQL (free-tier, cloud-based) database for app, connected to express-backend 1
+3.8.2022 Added zoom-in functionality and ability to move map around in interactive map component 1
+7.8.2022 Added support for showing user's profile pics (anon-pic if null) in the frontend 1
+7.8.2022 Added view (tab) for future sub-boards to main board page 1
+7.8.2022 Added view/functionality to favorite/bookmark posts to frontend 1
+7.8.2022 Added page to frontend for viewing account details when logged in 1
+9.8.2022 Added login prompt when trying to vote or favorite on  a post 1
+9.8.2022 Frontend bug-fixing 1
+11.8.2022 docker compose file for development 1
+11.8.2022 Adder proper file structure for unit tests 1
+12.8.2022 Moved the style specifications for index.html to styles.css 1
+12.8.2022 Created own style file system/hierarchy for components 1
+16.8.2022 Moved all style specifications from component files to style.jsx files 1
+20.8.2022 Fixed bug to do with css background color property 1
+20.8.2022 Improved component for new posts 1
+20.8.2022 Replaced redux with react states (it's really ineffective!) where possible 1
+21.8.2022 Changed logout component to just a button within app component 1
+Total hours: 109

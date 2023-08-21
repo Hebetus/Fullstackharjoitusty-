@@ -1,10 +1,12 @@
 import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { nameChange, emailChange, usernameChange, passwordChange } from '../../reducers/registrationReducer'
-import { loginStatusChange } from '../../reducers/loginReducer'
+import {
+    registrationStyle, paragraphStyle, formStyle,
+    nameinputStyle, emailinputStyle, usernameinputStyle,
+    passwordinputStyle, errorStyle
+} from './RegistrationStyles'
 
 const Registration = ({ setLoginStatus }) => {
     const [nameValid, setNameValid] = useState(true)
@@ -12,74 +14,13 @@ const Registration = ({ setLoginStatus }) => {
     const [usernameValid, setUsernameValid] = useState(true)
     const [passwordValid, setPasswordValid] = useState(true)
 
-    const appStyle = {
-        margin: 5,
-        fontFamily: 'monospace',
-        fontSize: 16,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center'
-    }
-
-    const paragraphStyle = {
-        textAlign: 'center'
-    }
-
-    const formStyle = {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start'
-    }
-
-    const nameInputStyle = {
-        borderColor: nameValid ? null : 'red',
-        alignContent: 'center'
-    }
-
-    const emailInputStyle = {
-        borderColor: emailValid ? null : 'red'
-    }
-
-    const usernameInputStyle = {
-        borderColor: usernameValid ? null : 'red'
-    }
-
-    const passwordInputStyle = {
-        borderColor: passwordValid ? null : 'red'
-    }
-
-    const errorStyle = {
-        color: 'red',
-        fontSize: 14,
-        textAlign: 'center'
-    }
-
     const registrationUrl = '/api/users'
     const loginUrl = '/api/login'
 
-    const credentials = useSelector(state => state.registration)
-    const name = credentials.name
-    const email = credentials.email
-    const username = credentials.username
-    const password = credentials.password
-
-    const dispatch = useDispatch()
-    
-    const setName = (name) => {
-        dispatch(nameChange(name))
-    }
-
-    const setEmail = (email) => {
-        dispatch(emailChange(email))
-    }
-
-    const setUserName = (username) => {
-        dispatch(usernameChange(username))
-    }
-
-    const setPassword = (password) => {
-        dispatch(passwordChange(password))
-    }
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [username, setUserName] = useState('')
+    const [password, setPassword] = useState('')
 
     const navigate = useNavigate()
 
@@ -151,7 +92,6 @@ const Registration = ({ setLoginStatus }) => {
                 setUserName('')
                 setPassword('')
                 console.log(window.localStorage.getItem('username'), window.localStorage.getItem('password'), window.localStorage.getItem('token'))
-                dispatch(loginStatusChange(true))
                 setLoginStatus(true)
                 navigate('/')
             })
@@ -162,29 +102,29 @@ const Registration = ({ setLoginStatus }) => {
 
     return (
         <div>
-            <div style={appStyle}>
-                <form onSubmit={handleRegistration} style={formStyle}>
-                    <div style={formStyle}>
-                        <p style={paragraphStyle}>Nimi: </p>
-                        <input value={name} onChange={handleNameChange} style={nameInputStyle}></input>
-                        {nameValid ? null : <p style={errorStyle}>Nimen tulee olla 3-15 merkin pituinen</p>}
+            <div style={registrationStyle()}>
+                <form onSubmit={handleRegistration} style={formStyle()}>
+                    <div style={formStyle()}>
+                        <p style={paragraphStyle()}>Nimi: </p>
+                        <input value={name} onChange={handleNameChange} style={nameinputStyle(nameValid)}></input>
+                        {nameValid ? null : <p style={errorStyle()}>Nimen tulee olla 3-15 merkin pituinen</p>}
                     </div>
-                    <div style={formStyle}>
-                        <p style={paragraphStyle}>Sähköposti: </p>
-                        <input type="email" value={email} onChange={handleEmailChange} style={emailInputStyle}></input>
-                        {emailValid ? null : <p style={errorStyle}>Syötä kelvollinen sähköpostiosoite</p>}
+                    <div style={formStyle()}>
+                        <p style={paragraphStyle()}>Sähköposti: </p>
+                        <input type="email" value={email} onChange={handleEmailChange} style={emailinputStyle(emailValid)}></input>
+                        {emailValid ? null : <p style={errorStyle()}>Syötä kelvollinen sähköpostiosoite</p>}
                     </div>
-                    <div style={formStyle}>
-                        <p style={paragraphStyle}>Käyttäjänimi: </p>
-                        <input value={username} onChange={handleUsernameChange} style={usernameInputStyle}></input>
-                        {usernameValid ? null : <p style={errorStyle}>Käyttäjänimen tulee olla 3-15 merkin pituinen</p>}
+                    <div style={formStyle()}>
+                        <p style={paragraphStyle()}>Käyttäjänimi: </p>
+                        <input value={username} onChange={handleUsernameChange} style={usernameinputStyle(usernameValid)}></input>
+                        {usernameValid ? null : <p style={errorStyle()}>Käyttäjänimen tulee olla 3-15 merkin pituinen</p>}
                     </div>
-                    <div style={formStyle}>
-                        <p style={paragraphStyle}>Salasana: </p>
-                        <input type="password" value={password} onChange={handlePasswordChange} style={passwordInputStyle}></input>
-                        {passwordValid ? null : <p style={errorStyle}>Salasanan tulee olla 4-15 merkin pituinen</p>}
+                    <div style={formStyle()}>
+                        <p style={paragraphStyle()}>Salasana: </p>
+                        <input type="password" value={password} onChange={handlePasswordChange} style={passwordinputStyle(passwordValid)}></input>
+                        {passwordValid ? null : <p style={errorStyle()}>Salasanan tulee olla 4-15 merkin pituinen</p>}
                     </div>
-                    <button type="submit" style={appStyle}>Rekisteröidy</button>
+                    <button type="submit" style={registrationStyle()}>Rekisteröidy</button>
                 </form>
             </div>
             <p>&nbsp;</p>

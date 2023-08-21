@@ -1,35 +1,26 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { gql, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 
-import { postChange } from '../../reducers/newpostReducer'
+import { ADD_POST } from '../../graphql/mutations'
+
+import { newpostStyle, formStyle, submitbuttonStyle } from './BoardStyles'
+import { useState } from 'react'
 
 const Newpost = ({ addPost, postsLength }) => {
-    const ADD_POST = gql`
-        mutation AddPost($content: String!, $author: String!) {
-            addPost(content: $content, author: $author)
-        }
-    `
+    const [newPost, setNewPost] = useState('')
 
-    const [mutate, { data, error, loading }] = useMutation(ADD_POST)
-
-    const newPost = useSelector(state => state.newpost)
-
-    const dispatch = useDispatch()
-    const setNewPost = (newPost) => {
-        dispatch(postChange(newPost))
-    }
+    const [mutate] = useMutation(ADD_POST)
 
     const handlePost = (event) => {
         event.preventDefault()
         let username = window.localStorage.getItem('username')
         if (!username) {
             username = 'Anonyymi'
-            console.log(username)
         }
         const newPostJSON = {
             author: username,
             content: newPost,
-            id: postsLength
+            id: postsLength,
+            date: new Date()
         }
         addPost(newPostJSON)
         mutate({ variables: { content: newPost, author: username } })
@@ -40,31 +31,11 @@ const Newpost = ({ addPost, postsLength }) => {
         setNewPost(event.target.value)
     }
 
-    const newpostStyle = {
-        listStyleType: 'none',
-        padding: 5,
-        fontFamily: 'monospace'
-    }
-
-    const formStyle = {
-        fontFamily: 'monospace',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    }
-
-    const buttonStyle = {
-        backgroundColor: 'black',
-        color: 'white',
-        fontFamily: 'monospace',
-        
-    }
-
     return (
-        <div style={newpostStyle}>
-            <form onSubmit={handlePost} style={formStyle}>
-                <input value={newPost} onChange={handleChange} style={newpostStyle}></input>
-                <button type="submit" style={buttonStyle}>Lisää uusi postaus</button>
+        <div style={newpostStyle()}>
+            <form onSubmit={handlePost} style={formStyle()}>
+                <textarea value={newPost} onChange={handleChange} style={newpostStyle()}></textarea>
+                <button type="submit" style={submitbuttonStyle()}>Lisää uusi postaus</button>
             </form>
         </div>
     )

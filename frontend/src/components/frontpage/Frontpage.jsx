@@ -3,86 +3,24 @@ import luonto from '../../images/luonto.jpg'
 import historia from '../../images/historia.jpg'
 import vpk from '../../images/vpk.jpg'
 
+import {
+    frontpageStyle, titleStyle, leftparagraphStyle,
+    rightparagraphStyle, flexboxStyle, imageStyle,
+    fillerStyle, flexboxstyleSecond, fillerstyleSecond,
+    flexboxstyleThird, fillerstyleThird, flexboxstyleFourth
+} from './FrontpageStyles'
+
 const Frontpage = () => {
-    const frontpageStyle = {
-        backgroundColor: '#ffccff',
-        fontFamily: 'monospace',
-        fontSize: 16,
-        padding: 0,
-        margin: 0
-    }
-
-    const titleStyle = {
-        fontSize: 150,
-        textAlign: 'center',
-        borderStyle: 'solid',
-        borderWidth: 7,
-        padding: 10,
-        margin: 10
-    }
-
-    const leftParagraphStyle = {
-        textAlign: 'right',
-        margin: 15
-    }
-
-    const rightParagraphStyle = {
-        margin: 15
-    }
-
-    const flexBoxStyle = {
-        display: 'flex',
-        flexDirection: 'row',
-        backgroundColor: '#ff99ff'
-    }
-
-    const imageStyle = {
-        padding: 15
-    }
-
-    const fillerStyle = {
-        backgroundColor: '#ff99ff',
-        margin: 0
-    }
-
-    const flexBoxStyleSecond = {
-        display: 'flex',
-        flexDirection: 'row',
-        backgroundColor: '#ffccff'
-    }
-
-    const fillerStyleSecond = {
-        backgroundColor: '#ffccff',
-        margin: 0
-    }
-
-    const flexBoxStyleThird = {
-        display: 'flex',
-        flexDirection: 'row',
-        backgroundColor: '#ff99ff'
-    }
-
-    const fillerStyleThird = {
-        backgroundColor: '#ff99ff',
-        margin: 0
-    }
-
-    const flexBoxStyleFourth = {
-        display: 'flex',
-        flexDirection: 'row',
-        backgroundColor: '#ffccff'
-    }
-
     return (
-        <div style={frontpageStyle}>
+        <div style={frontpageStyle()}>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
-            <p style={titleStyle}>MÄRYNUMMI</p>
+            <p style={titleStyle()}>MÄRYNUMMI</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <div>
-                <div style={flexBoxStyle}>
-                    <div style={rightParagraphStyle}>
+                <div style={flexboxStyle()}>
+                    <div style={rightparagraphStyle()}>
                         <h2>Yleistä</h2>
                         <p>
                         Märynummi on taajama Salossa Halikon keskiosissa. Märynummi on kahden kylän, Märyn ja Nummen yhteenkasvanut alue. Paikalliset kutsuvat taajamaa usein pelkästään
@@ -90,17 +28,17 @@ const Frontpage = () => {
                         Nykyään Märynummi on taajama, jossa toimii oma alakoulu, Märynummen koulu.
                         </p>
                     </div>
-                    <div style={imageStyle}>
+                    <div style={imageStyle()}>
                         <img src={koulu} alt="kuva märyn koulusta" width="900"/>
                     </div>
                 </div>
-                <p style={fillerStyle}>&nbsp;</p>
-                <p style={fillerStyle}>&nbsp;</p>
-                <div style={flexBoxStyleSecond}>
-                    <div style={imageStyle}>
+                <p style={fillerStyle()}>&nbsp;</p>
+                <p style={fillerStyle()}>&nbsp;</p>
+                <div style={flexboxstyleSecond()}>
+                    <div style={imageStyle()}>
                         <img src={luonto} alt="luontokuva" width="900"/>
                     </div>
-                    <div style={leftParagraphStyle}>
+                    <div style={leftparagraphStyle()}>
                         <h2>Luonto</h2>
                         <p>
                         Märynummi sijaitsee metsäselänteiden eteläreunalla n. 60-80 metriä merenpinnan yläpuolella. Asutus on syntynyt eteläisten rinteiden ympärille ja kasvanut pohjoiseen
@@ -112,10 +50,10 @@ const Frontpage = () => {
                         </p>
                     </div>
                 </div>
-                <p style={fillerStyleSecond}>&nbsp;</p>
-                <p style={fillerStyleSecond}>&nbsp;</p>
-                <div style={flexBoxStyleThird}>
-                    <div style={rightParagraphStyle}>
+                <p style={fillerstyleSecond()}>&nbsp;</p>
+                <p style={fillerstyleSecond()}>&nbsp;</p>
+                <div style={flexboxstyleThird()}>
+                    <div style={rightparagraphStyle()}>
                         <h2>Historia</h2>
                         <p>
                         Venäläiset rakensivat vuonna 1883 Märyyn sotilaskasarmin Halikon reservikomppanialle. Venäjä lakkautti Suomen sotaväen 1900-luvun alussa, jolloin myös reservin
@@ -129,17 +67,17 @@ const Frontpage = () => {
                         muistomerkki.
                         </p>
                     </div>
-                    <div style={imageStyle}>
+                    <div style={imageStyle()}>
                         <img src={historia} alt="kuva punaisten muistomerkistä" width="900"/>
                     </div>
                 </div>
-                <p style={fillerStyleThird}>&nbsp;</p>
-                <p style={fillerStyleThird}>&nbsp;</p>
-                <div style={flexBoxStyleFourth}>
-                    <div style={imageStyle}>
+                <p style={fillerstyleThird()}>&nbsp;</p>
+                <p style={fillerstyleThird()}>&nbsp;</p>
+                <div style={flexboxstyleFourth()}>
+                    <div style={imageStyle()}>
                         <img src={vpk} alt="kuva märyn vpk:sta" width="900"/>
                     </div>
-                    <div style={leftParagraphStyle}>
+                    <div style={leftparagraphStyle()}>
                         <h2>Nykytila</h2>
                         <p>
                         Märyssä on alakoulun lisäksi Halikon VPK:n paloasema, päiväkoti, nuorisotila Mesta, frisbeegolf-rata, viitoitettu luontopolku ja uimala. E18-moottoritie kulkee

@@ -1,78 +1,37 @@
-import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
-
-import { removePost } from '../../reducers/postsReducer'
+import { useMutation } from '@apollo/client'
 
 import Replies from './Replies'
-import { gql, useMutation } from '@apollo/client'
 
-const Post = ({ post }) => {
+import { ADD_LIKE, ADD_DISLIKE } from '../../graphql/mutations'
+
+import profilePic from '../../images/anon-profile-pic.jpg'
+
+import {
+    postcontainerStyle, postStyle, flexStyle,
+    profilepicStyle, itemsStyle,
+    favoriteStyle, likeStyle, dislikeStyle,
+    repliesStyle, dateStyle, closedialogStyle
+} from './BoardStyles'
+
+const Post = ({ post, isLoggedIn }) => {
     const [liked, setLiked] = useState(false)
     const [disliked, setDisliked] = useState(false)
     const [showReplies, setShowReplies] = useState(false)
     const [likes, setLikes] = useState(post.likes || 0)
     const [likesDescription, setLikesDescription] = useState('')
+    const [favorite, setFavorited] = useState(false)
 
-    const appStyle = {
-        margin: 5,
-        fontFamily: 'monospace',
-        fontSize: 16,
-        listStyleType: 'none'
-    }
-
-    const postStyle = {
-        borderBottom: 'solid',
-        borderBottomWidth: 2,
-        padding: 5
-    }
-
-    const itemsStyle = {
-        display: 'flex',
-        flexDirection: 'row'
-    }
-
-    const buttonStyle = {
-        backgroundColor: 'black',
-        color: 'white',
-        fontFamily: 'monospace'
-    }
-
-    const likeStyle = {
-        margin: 5,
-        backgroundColor: liked ? 'black' : 'white'
-    }
-
-    const dislikeStyle = {
-        margin: 5,
-        backgroundColor: disliked ? 'black' : 'white'
-    }
-
-    const repliesStyle = {
-        margin: 5,
-        backgroundColor: showReplies ? 'black' : 'white'
-    }
-
-    const dateStyle = {
-        textAlign: 'right',
-        flexGrow: 2
-    }
-
-    const dispatch = useDispatch()
-
-    const handleClick = (event) => {
-        event.preventDefault()
-        dispatch(removePost(post._id.toString()))
-    }
-
-    const ADD_LIKE = gql`
-        mutation IncreaseLikes($id: String!) {
-            increaseLikes(id: $id)
-        }
-    `
-
-    const [mutateLike, { dataLike, loadingLike, errorLike }] = useMutation(ADD_LIKE)
+    const [mutateLike] = useMutation(ADD_LIKE)
 
     const handleLike = (event) => {
+        if (liked) {
+            return
+        }
+        if (!isLoggedIn) {
+            showDialog()
+            return
+        }
         event.preventDefault()
         setLiked(!liked)
         setDisliked(false)
@@ -80,15 +39,16 @@ const Post = ({ post }) => {
         setLikes(likes + 1)
     }
 
-    const ADD_DISLIKE = gql`
-        mutation DecreaseLikes($id: String!) {
-            decreaseLikes(id: $id)
-        }
-    `
-
-    const [mutateDislike, { dataDislike, loadingDislike, errorDislike }] = useMutation(ADD_DISLIKE)
+    const [mutateDislike] = useMutation(ADD_DISLIKE)
 
     const handleDislike = (event) => {
+        if (disliked) {
+            return
+        }
+        if (!isLoggedIn) {
+            showDialog()
+            return
+        }
         event.preventDefault()
         setDisliked(!disliked)
         setLiked(false)
@@ -101,8 +61,24 @@ const Post = ({ post }) => {
         setShowReplies(!showReplies)
     }
 
-    const credentials = useSelector(state => state.login)
-    const username = credentials.username
+    const handleFavorite = (event) => {
+        if (!isLoggedIn) {
+            showDialog()
+            return
+        }
+        setFavorited(!favorite)
+    }
+
+    const showDialog = () => {
+        const loginDialog = document.getElementById('loginDialog')
+        loginDialog.showModal()
+    }
+
+    const closeDialog = (event) => {
+        event.preventDefault()
+        const loginDialog = document.getElementById('loginDialog')
+        loginDialog.close()
+    }
 
     useEffect(() => {
         if (likes === 1) {
@@ -115,18 +91,30 @@ const Post = ({ post }) => {
     }, [likes])
 
     return (
-        <li key={post._id} style={appStyle}>
-            <p style={postStyle}>Käyttäjän {post.author} postaus {username === post.user ? <button style={buttonStyle} onClick={handleClick}>Poista</button> : null}</p>
-            <p>{post.content}</p>
-            <div style={itemsStyle}>
-                <div style={itemsStyle}>
-                    <p>{likes} {likesDescription}</p>
-                    <button style={likeStyle} onClick={handleLike}>👍</button>
-                    <button style={dislikeStyle} onClick={handleDislike}>👎</button>
-                    <button style={repliesStyle} onClick={handleShowReplies}>💬</button>
+        <li key={post._id} style={postcontainerStyle()}>
+            <dialog id='loginDialog'>
+                <p>Kirjaudu sisään tykätäksesi/merkataksesi postauksia</p>
+                <button style={closedialogStyle()} onClick={closeDialog}>
+                    X
+                </button>
+            </dialog>
+            <div style={flexStyle()}>
+                <img src={profilePic} alt='Anonymous profile pic' width='70' height='70' style={profilepicStyle()}/>
+                <div>
+                    <p style={postStyle()}>Käyttäjän {post.author} postaus</p>
                 </div>
-                <div style={dateStyle}>
-                    <p>{post.date.substring(0, 21)}</p>
+            </div>
+            <p>{post.content}</p>
+            <div style={itemsStyle()}>
+                <div style={itemsStyle()}>
+                    <p>{likes} {likesDescription}</p>
+                    <button style={likeStyle(liked)} onClick={handleLike}>👍</button>
+                    <button style={dislikeStyle(disliked)} onClick={handleDislike}>👎</button>
+                    <button style={repliesStyle(showReplies)} onClick={handleShowReplies}>💬</button>
+                    <button style={favoriteStyle(favorite)} onClick={handleFavorite}>⭐</button>
+                </div>
+                <div style={dateStyle()}>
+                    <p>{String(post.date).substring(0, 21)}</p>
                 </div>
             </div>
             {

@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: frontend-dev
+    image: frontend-development
     build:
       context: ./frontend
       dockerfile: dev.Dockerfile
@@ -13,10 +13,12 @@ services:
       CHOKIDAR_USEPOLLING: true
       WATCHPACK_POLLING: true
     container_name: frontend-dev
+    ports:
+      - 3000:3000
     depends_on:
       - backend
   backend:
-    image: backend-dev
+    image: backend-development
     build:
       context: ./backend
       dockerfile: dev.Dockerfile
@@ -26,4 +28,7 @@ services:
     environment:
       USRNAME: fullstack
       PASSWORD: 7MSAZ1cj1NwXZmad
+    container_name: backend-dev
+    ports:
+      - 3001:3001
     
