@@ -8,6 +8,12 @@ export const frontpageStyle = () => {
     }
 }
 
+export const titleContainerStyle = () => {
+    return {
+        
+    }
+}
+
 export const titleStyle = () => {
     return {
         fontSize: 150,
@@ -15,7 +21,8 @@ export const titleStyle = () => {
         borderStyle: 'solid',
         borderWidth: 7,
         padding: 10,
-        margin: 10
+        margin: 10,
+        marginTop: 10
     }
 }
 

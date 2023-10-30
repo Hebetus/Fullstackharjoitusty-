@@ -11,6 +11,7 @@ const unknownEndpoint = require('./controllers/uknownEndpoint')
 
 const requestLogger = require('./middleware/requestLogger')
 const errorLogger = require('./middleware/errorHandler')
+const { connectToDatabase } = require('./SQLclient')
 
 const app = express()
 app.use(cors())
@@ -31,23 +32,9 @@ app.use(unknownEndpoint)
 
 app.use(errorLogger)
 
-const PORT = process.env.PORT || 3001
-
-const sequelize = new Sequelize(process.env.DATABASE_URL)
-
-const main = async () => {
-    try {
-        await sequelize.authenticate()
-        console.log('connected to postgre-database')
-        sequelize.close()
-    }
-    catch (error) {
-        console.log('failed connecting to postgre-database', error)
-    }
-}
-
-main()
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
+    connectToDatabase()
     console.log(`server running on port ${PORT}`)
 })

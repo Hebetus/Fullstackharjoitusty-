@@ -1,25 +1,31 @@
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 
-import { ADD_REPLY } from '../../graphql/mutations'
+import { REPLY } from '../../graphql/mutations'
 
 import { boxStyle, replyStyle, replybuttonStyle } from './BoardStyles'
+import { closedialogStyle } from './BoardStyles'
 
-const Newreply = ({ _id, addReply }) => {
+const Newreply = ({ id, isLoggedIn, addReply }) => {
     const [reply, setReply] = useState('')
 
-    const [mutate] = useMutation(ADD_REPLY)
+    const userId = parseInt(window.localStorage.getItem('userId'))
+
+    const [mutate] = useMutation(REPLY)
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        const newReply = {
-            author: '',
-            content: reply,
-            date: '',
-            likes: 0
+        if (!isLoggedIn) {
+            showDialog()
+            return
         }
-        addReply(newReply)
-        mutate({ variables: { addReplyId: _id, reply: reply } })
+        mutate({ variables: { content: reply, pic: 'testi', postId: id, userId: userId } })
+        addReply({
+            id: null,
+            content: reply,
+            pic: null,
+            date: String(new Date()).substring(4, 15)
+        })
         setReply('')
     }
 
@@ -27,8 +33,25 @@ const Newreply = ({ _id, addReply }) => {
         setReply(event.target.value)
     }
 
+    const showDialog = () => {
+        const replyDialog = document.getElementById('replyDialog')
+        replyDialog.showModal()
+    }
+
+    const closeDialog = (event) => {
+        event.preventDefault()
+        const replyDialog = document.getElementById('replyDialog')
+        replyDialog.close()
+    }
+
     return (
         <div style={boxStyle()}>
+                <dialog id='replyDialog'>
+                    <p>Kirjaudu sisään vastataksesi postaukseen</p>
+                    <button style={closedialogStyle()} onClick={closeDialog}>
+                        X
+                    </button>
+            </dialog>
             <form onSubmit={handleSubmit}>
                 <input value={reply} onChange={handleChange} style={replyStyle()}></input>
                 <button type="submit" style={replybuttonStyle()}>Vastaa</button>

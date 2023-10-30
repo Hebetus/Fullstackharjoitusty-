@@ -42,9 +42,18 @@ const Login = ({ setLoginStatus }) => {
         axios.post(loginUrl, userForLogin)
             .then((response) => {
                 const newToken = response.data.token
+                const profile = response.data.profile
                 window.localStorage.setItem('username', username)
                 window.localStorage.setItem('password', password)
                 window.localStorage.setItem('token', newToken)
+
+                window.localStorage.setItem('name', profile.name)
+                window.localStorage.setItem('userId', profile.userId)
+                window.localStorage.setItem('signupDate', profile.signupDate)
+                window.localStorage.setItem('profilePic', profile.profilePic)
+                window.localStorage.setItem('email', profile.email)
+                window.localStorage.setItem('userId', profile.userId)
+                
                 setUsername('')
                 setPassword('')
                 setLoginStatus(true)

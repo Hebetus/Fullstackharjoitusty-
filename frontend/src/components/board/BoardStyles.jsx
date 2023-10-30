@@ -210,3 +210,19 @@ export const paragraphStyle = () => {
         fontStyle: 'italic'
     }
 }
+
+export const removepostcontainerStyle = () => {
+    return {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    }
+}
+
+export const removebuttonStyle = () => {
+    return {
+        margin: 5,
+        padding: 5,
+        backgroundColor: '#ffffff'
+    }
+}

@@ -1,37 +1,42 @@
 import { useEffect, useState } from 'react'
+import { useMutation, useQuery } from '@apollo/client'
+
+import { POST_REPLIES } from '../../graphql/queries'
 
 import Reply from './Reply'
 import Newreply from './Newreply'
 
 import { paragraphStyle } from './BoardStyles'
 
-const Replies = ({ replies, _id }) => {
-    const [realReplies, setReplies] = useState([])
+const Replies = ({ id, isLoggedIn }) => {
+    const [replies, setReplies] = useState([])
 
-    if (!replies) {
-        replies = []
-    }
+    const { loading, error, data } = useQuery(POST_REPLIES, {
+        variables: { postRepliesId: id }
+    })
 
     useEffect(() => {
-        setReplies(replies)
-    }, [replies])
+        if (data) {
+            setReplies(data.postReplies)
+        }
+    }, [loading, data])
 
     const addReply = (reply) => {
-        setReplies(realReplies.concat(reply))
+        setReplies([...replies, reply])
     }
 
     return (
         <div key={Math.random()}>
             {
-            realReplies.length
+            replies.length > 0
             ?
             <div>
-                {realReplies.map((reply) => <Reply reply={reply} key={Math.random()} />)}
+                {replies.map((reply) => <Reply reply={reply} key={Math.random()} />)}
             </div>
             :
             <p style={paragraphStyle()}>Ei vielä yhtään vastausta</p>
             }
-            <Newreply _id={_id} addReply={addReply} />
+            <Newreply id={id} isLoggedIn={isLoggedIn} addReply={addReply} />
         </div>
     )
 }

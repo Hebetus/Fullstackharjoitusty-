@@ -1,23 +1,37 @@
+import { useEffect, useState } from 'react'
+import { useQuery } from '@apollo/client'
+
 import koulu from '../../images/koulu.jpg'
 import luonto from '../../images/luonto.jpg'
 import historia from '../../images/historia.jpg'
 import vpk from '../../images/vpk.jpg'
 
 import {
-    frontpageStyle, titleStyle, leftparagraphStyle,
+    frontpageStyle, titleContainerStyle, titleStyle, leftparagraphStyle,
     rightparagraphStyle, flexboxStyle, imageStyle,
     fillerStyle, flexboxstyleSecond, fillerstyleSecond,
     flexboxstyleThird, fillerstyleThird, flexboxstyleFourth
 } from './FrontpageStyles'
 
+import { VISITOR_COUNT } from '../../graphql/queries'
+
 const Frontpage = () => {
+    const [count, setCount] = useState(0)
+
+    const { loading, error, data } = useQuery(VISITOR_COUNT)
+
+    useEffect(() => {
+        if (data) {
+            setCount(data.visitorCount)
+        }
+    }, [loading, data])
+
     return (
         <div style={frontpageStyle()}>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-            <p style={titleStyle()}>MÄRYNUMMI</p>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
+            <div style={titleContainerStyle()}>
+                <p style={titleStyle()}>MÄRYNUMMI</p>
+                <p style={titleStyle()}>Käyntikertoja: {count}</p>
+            </div>
             <div>
                 <div style={flexboxStyle()}>
                     <div style={rightparagraphStyle()}>

@@ -1,21 +1,20 @@
 import { useMutation } from '@apollo/client'
 
-import { ADD_POST } from '../../graphql/mutations'
+import { POST } from '../../../graphql/mutations'
 
-import { newpostStyle, formStyle, submitbuttonStyle } from './BoardStyles'
+import { newpostStyle, formStyle, submitbuttonStyle } from '../BoardStyles'
 import { useState } from 'react'
 
 const Newpost = ({ addPost, postsLength }) => {
     const [newPost, setNewPost] = useState('')
 
-    const [mutate] = useMutation(ADD_POST)
+    const [mutate] = useMutation(POST)
 
     const handlePost = (event) => {
         event.preventDefault()
-        let username = window.localStorage.getItem('username')
-        if (!username) {
-            username = 'Anonyymi'
-        }
+        const username = window.localStorage.getItem('username')
+        const userId = parseInt(window.localStorage.getItem('userId'))
+
         const newPostJSON = {
             author: username,
             content: newPost,
@@ -23,7 +22,7 @@ const Newpost = ({ addPost, postsLength }) => {
             date: new Date()
         }
         addPost(newPostJSON)
-        mutate({ variables: { content: newPost, author: username } })
+        mutate({ variables: { userId: userId || 4, content: newPost } })
         setNewPost("Uusi postaus?")
     }
 

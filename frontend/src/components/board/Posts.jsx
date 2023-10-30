@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { Link } from 'react-router-dom'
 
-import Post from './Post'
-import Newpost from './Newpost'
+import Post from './post/Post'
+import Newpost from './newpost/Newpost'
 
 import { ALL_POSTS } from '../../graphql/queries'
 

@@ -99,7 +99,7 @@
 9.8.2022 Added login prompt when trying to vote or favorite on  a post 1
 9.8.2022 Frontend bug-fixing 1
 11.8.2022 docker compose file for development 1
-11.8.2022 Adder proper file structure for unit tests 1
+11.8.2022 Added proper file structure for unit tests 1
 12.8.2022 Moved the style specifications for index.html to styles.css 1
 12.8.2022 Created own style file system/hierarchy for components 1
 16.8.2022 Moved all style specifications from component files to style.jsx files 1
@@ -107,4 +107,28 @@
 20.8.2022 Improved component for new posts 1
 20.8.2022 Replaced redux with react states (it's really ineffective!) where possible 1
 21.8.2022 Changed logout component to just a button within app component 1
-Total hours: 109
+5.9.2022 Converted SQL schema to CREATE TABLE statements 1
+6.9.2022 Added PotgreSQL client to Apollo server 1
+7.9.2022 Added schema file for users to apollo server 1
+11.9.2022 Added schema file for posts to apollo server 1
+12.9.2022 Configured pgAdmin for administrating postgreSQL 1
+13.9.2022 Added tables to database for favoriting as well as up/downvoting posts 1
+14.9.2022 Implemented GraphQL query for retrieving users from SQL database through the Apollo server 1
+16.9.2022 Added schema file for visitor count, added post and visitor count schemas to index.js schema file 1
+18.9.2022 Implemented GraphQL query for retrieving the total visitation count through Apollo server 1
+19.9.2022 Added schema file for favoriting posts 1
+20.9.2022 Added query to Apollo server for favoriting posts 1
+25.9.2022 Moved typedefs to own file in apollo server 1
+26.9.2022 Added schema file for storing up/downvotes to sql database 1
+27.9.2022 Added resolver to server for voting on posts 1
+28.9.2022 Implemented relations to the client between sql models 1
+3.10.2022 Backend development 1
+4.10.2022 Backend development 1
+5.10.2022 Backend development 1
+14.10.2022 Backend development 4
+15.10.2022 Backend development, got all the tables in SQL database and their respective interface finally working 2
+16.10.2022 Frontend development, started implementing the new GraphQL queries 1
+16.10.2023 Front, back and database development 4
+23.10.2023 Front, back and database development 5
+30.10.2023 Front, back and databse development; started deploying new versions of server and apollo-server 5
+Total hours: 148
