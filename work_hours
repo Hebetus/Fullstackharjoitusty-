@@ -130,5 +130,12 @@
 16.10.2022 Frontend development, started implementing the new GraphQL queries 1
 16.10.2023 Front, back and database development 4
 23.10.2023 Front, back and database development 5
-30.10.2023 Front, back and databse development; started deploying new versions of server and apollo-server 5
-Total hours: 148
+30.10.2023 Front, back and databse development; deployed new versions of server and apollo-server. Pushed stable commit to repo 5
+6.11.2023 Front, back and database development. Updated ER-diagram, continued making unit tests.
+14.8.2024 Started to integrate new postgreSQL cloud provider to backend (ElephantSQL free tier no longer available) 1
+18.8.2024 Got server connected to new database 1
+19.8.2024 Migrated data tables from ElephantSQL to Aiven MySQL, small changes to database schema also done 1
+19.8.2024 Created new ER-diagram after database migration 1
+Total hours: 152
+Goal: 175
+Remain 175 - 152 = 23

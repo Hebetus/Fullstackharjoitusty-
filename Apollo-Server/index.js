@@ -5,7 +5,6 @@ const typeDefs = require('./typedefs')
 
 /**
  * The mongodb modules listed below aren't currently used
- */
 
 const mongoose = require('mongoose')
 const { Post } = require('./models/mongoose')
@@ -13,18 +12,14 @@ const username = process.env.USRNAME
 const password = process.env.PASSWORD
 const loginUrl = `mongodb+srv://${username}:${password}@cluster0.manjara.mongodb.net/?retryWrites=true&w=majority`
 
+*/
+
 const { connectToDatabase, sequelize } = require('./SQLclient')
 const { User, SQLPost, VisitorCount, Favorited, Vote, Reply, ReplyVote } = require('./models')
 
 const AuthService = require('./utils/authService')
 
-mongoose.connect(loginUrl)
-    .then((response) => {
-        console.log(`Apollo server connected to mongoose database: ${loginUrl} ${response}`)
-    })
-    .catch((error) => {
-        console.log(`Problem connecting to database: ${error.message}`)
-    })
+const { client } = require('./pgclient')
 
 const resolvers = {
     Query: {
@@ -112,15 +107,14 @@ const resolvers = {
             }
         },
         visitorCount: async (loading) => {
-            const visitations = await VisitorCount.findAll({})
-            const count = visitations[0].dataValues.count
-            
-            const id = 0
-            const visitorCount = await VisitorCount.findByPk(id)
-            visitorCount.count++
-            await visitorCount.save()
-            console.log(visitorCount)
-            return count
+            query = {
+                name: 'fetch-visitor-count',
+                text: 'SELECT * FROM visitor_count WHERE id = $1',
+                values: [0],
+            }
+            const response = await client.query(query)
+            const responsedata = response.rows[0].count
+            return responsedata
         },
         userProfile: async (root, args, loading) => {
             const user = await User.findByPk(args.id)
@@ -406,6 +400,18 @@ const server = new ApolloServer({
 startStandaloneServer(server, {
     listen: { port: 8080 },
 }).then(({ url }) => {
-    connectToDatabase()
+    client.connect(function (err) {
+        if (err) {
+            throw err
+        }
+    
+        client.query("SELECT VERSION()", [], function (err, result) {
+            if (err) {
+                throw err
+            }
+    
+            console.log(result.rows[0])
+        })
+    })
     console.log(`Server running at: ${url}`)
 })

@@ -17,6 +17,7 @@ const connectToDatabase = async () => {
     }
     catch (error) {
         console.log('Failed connecting to ElephantSQL')
+        console.log(error)
         return process.exit(1)
     }
 }

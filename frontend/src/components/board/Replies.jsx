@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useMutation, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 
 import { POST_REPLIES } from '../../graphql/queries'
 

@@ -25,7 +25,6 @@ const Post = ({ post, isLoggedIn }) => {
     const [favorite, setFavorited] = useState(false)
     const [username, setUsername] = useState('Anonyymi')
     const [ownPost, setOwnPost] = useState(false)
-    const {onRemoveButton, setOnRemoveButton} = useState(false)
 
     const id = parseInt(post.id)
     const userId = parseInt(window.localStorage.getItem('userId'))
@@ -165,17 +164,6 @@ const Post = ({ post, isLoggedIn }) => {
             setLikesDescription('tykkäystä')
         }
     }, [likes])
-
-    const handleMouseEnterRemoveButton = (event) => {
-        event.preventDefault()
-        console.log('on')
-        setOnRemoveButton(true)
-    }
-
-    const handleMouseLeaveRemoveButton = (event) => {
-        event.preventDefault()
-        setOnRemoveButton(false)
-    }
 
     return (
         <li key={post.id} style={postcontainerStyle()}>
